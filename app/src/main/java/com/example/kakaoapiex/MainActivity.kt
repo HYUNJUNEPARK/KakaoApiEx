@@ -5,7 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.example.kakaoapiex.databinding.ActivityMainBinding
-import com.example.kakaoapiex.search.address.retrofit.Repository
+import com.example.kakaoapiex.search.address.retrofit.AddressRepository
+import com.example.kakaoapiex.search.image.retrofit.ImageRepository
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -19,14 +20,17 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        searchAddress()
+        testKakaoApi()
     }
 
-    private fun searchAddress() {
+    private fun testKakaoApi() {
         launch {
             showProgress()
-            Repository.getAddress("전북 삼성동 100").let {
-                Log.d("testLog", "onCreate: $it")
+            AddressRepository.getAddress("전북 삼성동 100").let {
+                Log.d("testLog", "AddressRepository : $it")
+            }
+            ImageRepository.getImage("설현").let {
+                Log.d("testLog", "ImageRepository : $it")
             }
             dismissProgress()
         }

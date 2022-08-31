@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import kotlin.coroutines.CoroutineContext
 
-object Repository: CoroutineScope {
+object AddressRepository: CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO
 
@@ -32,11 +32,9 @@ object Repository: CoroutineScope {
             .create()
     }
 
-    /**
-     * OkHttp
-     * -REST API, HTTP 통신을 간편하게 구현할 수 있도록 다양한 기능(REST 호출 전송, HTTP 기반의 요청, 응답)을 제공해주는 자바 라이브러리
-     * -Retrofit 라이브러리의 베이스가 됨
-     */
+    /* OkHttp
+       -REST API, HTTP 통신을 간편하게 구현할 수 있도록 다양한 기능(REST 호출 전송, HTTP 기반의 요청, 응답)을 제공해주는 자바 라이브러리
+       -Retrofit 라이브러리의 베이스가 됨 */
     private fun buildHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(
