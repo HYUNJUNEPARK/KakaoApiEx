@@ -4,16 +4,22 @@ import androidx.viewbinding.BuildConfig
 import com.example.kakaoapiex.Url
 import com.example.kakaoapiex.search.address.model.AddressResponse
 import com.example.kakaoapiex.search.address.service.KakaoSearchAddressApiService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import kotlin.coroutines.CoroutineContext
 
-object Repository {
-    suspend fun getAddress(): AddressResponse? {
+object Repository: CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO
+
+    suspend fun getAddress(address: String): AddressResponse? {
         return kakaoSearchAddressApiService
-            .searchAddress("전북 삼성동 100")
+            .searchAddress(address)
             .body()
     }
 
@@ -27,7 +33,7 @@ object Repository {
     }
 
     /**
-     * okHttp
+     * OkHttp
      * -REST API, HTTP 통신을 간편하게 구현할 수 있도록 다양한 기능(REST 호출 전송, HTTP 기반의 요청, 응답)을 제공해주는 자바 라이브러리
      * -Retrofit 라이브러리의 베이스가 됨
      */
